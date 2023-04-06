@@ -26,7 +26,7 @@ draw = ImageDraw.Draw(new_image)
 h1_size = 36
 
 h1_font = ImageFont.truetype(
-    "C:\Windows\Fonts\Calibri\Calibri\calibri.ttf", h1_size)
+    "C:\\Windows\\Fonts\\Calibri\\Calibri\\calibri.ttf", h1_size)
 # Define custom text
 center_barcode_value = (barcode_image.width / 2) - len(barcode_param) * 8
 
@@ -36,6 +36,37 @@ draw.text((center_barcode_value, (new_height - h1_size - 15)),
 
 workbook = xlsxwriter.Workbook(
     'path/to/excel/file.xlsx', {'constant_memory': True})
+# save in file
+new_image.save('barcode_image.png', 'PNG')
+
 worksheet = workbook.add_worksheet()
 worksheet.insert_image('B3', 'barcode_image.png') # specify cell here
 workbook.close()
+
+
+#-------------------------------------------------------------------------------------------------
+import win32com.client
+from pywintypes import com_error
+
+# Path to original excel file
+WB_PATH = 'C:\\Users\\gtsak\\Documents\\barcode-generator-and-excel-to-pdf\\New ATLs - dupe.xlsx'
+# PDF path when saving
+PATH_TO_PDF = 'C:\\Users\\gtsak\\Documents\\barcode-generator-and-excel-to-pdf\\New ATLs.pdf'
+excel = win32com.client.Dispatch("Excel.Application")
+excel.Visible = False
+try:
+    print('Start conversion to PDF')
+    # Open
+    wb = excel.Workbooks.Open(WB_PATH)
+    # Specify the sheet you want to save by index. 1 is the first (leftmost) sheet.
+    ws_index_list = [1]
+    wb.WorkSheets(ws_index_list).Select()
+    # Save
+    wb.ActiveSheet.ExportAsFixedFormat(0, PATH_TO_PDF)
+except com_error as e:
+    print('failed.')
+else:
+    print('Succeeded.')
+finally:
+    wb.Close()
+    excel.Quit()
