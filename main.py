@@ -5,6 +5,7 @@ def barcode_generator(data):
     import code128
     from PIL import Image, ImageDraw, ImageFont
     from openpyxl.drawing.image import Image as xlImage
+    import os
 
     # Get barcode value
     barcode_param = data             # REPLACE WITH YOUR BARCODE VALUE
@@ -39,7 +40,9 @@ def barcode_generator(data):
             barcode_param, fill=(0, 0, 0), font=h1_font)
 
     # save in file
-    new_image.save('barcode_image_'+data+'.png', 'PNG')
+    if not os.path.exists('image'):
+        os.makedirs('image')
+    new_image.save('image/barcode_image_'+data+'.png', 'PNG')
 
 #-------------------------------------------------------------------------------------------------
 def pic_in_excel(data):
@@ -48,7 +51,7 @@ def pic_in_excel(data):
     from openpyxl.drawing.image import Image
 
     #change to the location and name of your image of the barcode
-    png_loc = r'./barcode_image.png'
+    png_loc = r'image/barcode_image_'+data+'.png'
 
 
     try:
@@ -81,12 +84,12 @@ def xl_to_pdf(data):
 
 
     # Path to original excel file
-    rel_xl_path = COPY + ".xlsx"
-    abs_xl_path = os.path.abspath(rel_xl_path)
-    WB_PATH = abs_xl_path
+    rel_xl_path = COPY + ".xlsx" # relative path to excel file
+    abs_xl_path = os.path.abspath(rel_xl_path) 
+    WB_PATH = abs_xl_path # absolute path to excel file
 
     # PDF path when saving
-    PATH_TO_PDF = abs_xl_path.replace('.xlsx', '.pdf')
+    PATH_TO_PDF = WB_PATH.replace(COPY + '.xlsx', 'PDFs\\'+COPY+'.pdf') # absolute path to pdf file in PDFs folder
     excel = win32com.client.Dispatch("Excel.Application")
     excel.Visible = False
     try:
@@ -99,6 +102,8 @@ def xl_to_pdf(data):
         # Save
         output_filename = data + ".pdf"
         PATH_TO_PDF = PATH_TO_PDF.replace(COPY + '.pdf', output_filename)
+        if not os.path.exists('PDFs'):
+            os.makedirs('PDFs') # create PDFs folder if it doesn't exist
         wb.ActiveSheet.ExportAsFixedFormat(0, PATH_TO_PDF)
     except com_error as e:
         print('failed.')
