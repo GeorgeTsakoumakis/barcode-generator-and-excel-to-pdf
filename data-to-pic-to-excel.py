@@ -5,7 +5,7 @@ from openpyxl.drawing.image import Image as xlImage
 import os
 
 # Get barcode value
-barcode_param = 'ATL-003111'
+barcode_param = 'ATL-003111'             # REPLACE WITH YOUR BARCODE VALUE
 
 # Create barcode image
 barcode_image = code128.image(barcode_param, height=120)
@@ -64,7 +64,7 @@ my_png.height = 0.3228 * my_png.height
 my_png.width = 0.4458 * my_png.width
 
 # add and scale the image to the cell
-ws.add_image(my_png, 'BQ6')
+ws.add_image(my_png, 'BQ6')                  # REPLACE WITH YOUR CELL
 
 
 wb.save(COPY + '.xlsx')
