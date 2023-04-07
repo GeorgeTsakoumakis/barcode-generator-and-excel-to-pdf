@@ -39,10 +39,10 @@ def barcode_generator(data):
             barcode_param, fill=(0, 0, 0), font=h1_font)
 
     # save in file
-    new_image.save('barcode_image.png', 'PNG')
+    new_image.save('barcode_image_'+data+'.png', 'PNG')
 
 #-------------------------------------------------------------------------------------------------
-def pic_in_excel():
+def pic_in_excel(data):
     import openpyxl
     from openpyxl import load_workbook
     from openpyxl.drawing.image import Image
