@@ -1,13 +1,13 @@
 FILENAME = 'test'                              # REPLACE WITH YOUR FILENAME
 COPY = 'test1'                           # REPLACE WITH YOUR FILENAME
 
-def barcode_generator():
+def barcode_generator(data):
     import code128
     from PIL import Image, ImageDraw, ImageFont
     from openpyxl.drawing.image import Image as xlImage
 
     # Get barcode value
-    barcode_param = 'ATL-003111'             # REPLACE WITH YOUR BARCODE VALUE
+    barcode_param = data             # REPLACE WITH YOUR BARCODE VALUE
 
     # Create barcode image
     barcode_image = code128.image(barcode_param, height=120)
@@ -74,7 +74,7 @@ def pic_in_excel():
     # Adapted from https://stackoverflow.com/questions/10888969/insert-image-in-openpyxl
 
 #-------------------------------------------------------------------------------------------------
-def xl_to_pdf():
+def xl_to_pdf(data):
     import win32com.client
     from pywintypes import com_error
     import os
@@ -106,9 +106,9 @@ def xl_to_pdf():
         wb.Close()
         excel.Quit()
 
-def main():
-    barcode_generator()
-    pic_in_excel()
-    xl_to_pdf()
+def main(data):
+    barcode_generator(data)
+    pic_in_excel(data)
+    xl_to_pdf(data)
 
-main()
+main('ATL-003112')
