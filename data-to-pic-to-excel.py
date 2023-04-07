@@ -1,6 +1,8 @@
-import xlsxwriter
 import code128
 from PIL import Image, ImageDraw, ImageFont
+import openpyxl
+from openpyxl.drawing.image import Image as xlImage
+import os
 
 # Get barcode value
 barcode_param = 'ATL-003111'
@@ -34,24 +36,52 @@ center_barcode_value = (barcode_image.width / 2) - len(barcode_param) * 8
 draw.text((center_barcode_value, (new_height - h1_size - 15)),
           barcode_param, fill=(0, 0, 0), font=h1_font)
 
-workbook = xlsxwriter.Workbook(
-    'path/to/excel/file.xlsx', {'constant_memory': True})
 # save in file
 new_image.save('barcode_image.png', 'PNG')
 
-worksheet = workbook.add_worksheet()
-worksheet.insert_image('B3', 'barcode_image.png') # specify cell here
-workbook.close()
+#-------------------------------------------------------------------------------------------------
+import openpyxl
+from openpyxl import load_workbook
+from openpyxl.drawing.image import Image
 
+#change to the location and name of your image of the barcode
+png_loc = r'./barcode_image.png'
+FILENAME = 'test'                              # REPLACE WITH YOUR FILENAME
+COPY = 'test1'                           # REPLACE WITH YOUR FILENAME
+
+try:
+    wb = load_workbook(FILENAME + '.xlsx')                 # REPLACE WITH YOUR FILENAME
+except FileNotFoundError:
+    print("File not found, creating new file")
+    wb = openpyxl.Workbook()
+    wb.save(FILENAME + '.xlsx')                            # REPLACE WITH YOUR FILENAME
+
+ws = wb.active
+my_png = Image(png_loc)
+
+# scaling the image to 32% height and 44% width of its original size
+my_png.height = 0.3228 * my_png.height
+my_png.width = 0.4458 * my_png.width
+
+# add and scale the image to the cell
+ws.add_image(my_png, 'BQ6')
+
+
+wb.save(COPY + '.xlsx')
+
+# Adapted from https://stackoverflow.com/questions/10888969/insert-image-in-openpyxl
 
 #-------------------------------------------------------------------------------------------------
 import win32com.client
 from pywintypes import com_error
 
 # Path to original excel file
-WB_PATH = 'C:\\Users\\gtsak\\Documents\\barcode-generator-and-excel-to-pdf\\New ATLs - dupe.xlsx'
+rel_xl_path = COPY + ".xlsx"
+abs_xl_path = os.path.abspath(rel_xl_path)
+WB_PATH = abs_xl_path
+
 # PDF path when saving
-PATH_TO_PDF = 'C:\\Users\\gtsak\\Documents\\barcode-generator-and-excel-to-pdf\\New ATLs.pdf'
+PATH_TO_PDF = abs_xl_path.replace('.xlsx', '.pdf')
 excel = win32com.client.Dispatch("Excel.Application")
 excel.Visible = False
 try:
