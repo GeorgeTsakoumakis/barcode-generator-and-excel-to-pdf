@@ -114,8 +114,14 @@ def xl_to_pdf(data):
         excel.Quit()
 
 def main(data):
+    if data == '':
+        print('No data')
+        return
     barcode_generator(data)
     pic_in_excel(data)
     xl_to_pdf(data)
 
-main('ATL-003112')
+try:
+    main("")
+except TypeError:
+    print('No data')
