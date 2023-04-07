@@ -97,6 +97,8 @@ def xl_to_pdf(data):
         ws_index_list = [1]
         wb.WorkSheets(ws_index_list).Select()
         # Save
+        output_filename = data + ".pdf"
+        PATH_TO_PDF = PATH_TO_PDF.replace(COPY + '.pdf', output_filename)
         wb.ActiveSheet.ExportAsFixedFormat(0, PATH_TO_PDF)
     except com_error as e:
         print('failed.')
