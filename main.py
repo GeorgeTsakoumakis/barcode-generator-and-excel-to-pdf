@@ -59,11 +59,11 @@ def pic_in_excel(data):
 
 
     try:
-        wb = load_workbook(FILENAME + '.xlsx')                 # REPLACE WITH YOUR FILENAME
+        wb = load_workbook(FILENAME + '.xlsx')                
     except FileNotFoundError:
         print("File not found, creating new file")
         wb = openpyxl.Workbook()
-        wb.save(FILENAME + '.xlsx')                            # REPLACE WITH YOUR FILENAME
+        wb.save(FILENAME + '.xlsx')                           
 
     ws = wb.active
     my_png = Image(png_loc)
