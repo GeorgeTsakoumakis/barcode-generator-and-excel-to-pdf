@@ -1,5 +1,5 @@
-FILENAME = 'test'                              # REPLACE WITH YOUR FILENAME
-COPY = 'test1'                           # REPLACE WITH YOUR FILENAME
+FILENAME = input('Enter name of Excel file to write to - DO NOT include extention (make sure it is in same directory as exe: \n>')                              # REPLACE WITH YOUR FILENAME
+COPY = input('Enter name of copy of Excel file to be created and exported later - DO NOT include extention: \n>')
 
 def barcode_generator(data):
     import code128
@@ -73,7 +73,8 @@ def pic_in_excel(data):
     my_png.width = 0.4458 * my_png.width
 
     # add and scale the image to the cell
-    ws.add_image(my_png, 'BQ6')                  # REPLACE WITH YOUR CELL
+    cell = input('Enter cell to place barcode in: \n>')
+    ws.add_image(my_png, cell)                 
 
 
     wb.save(COPY + '.xlsx')
@@ -126,6 +127,7 @@ def main(data):
     xl_to_pdf(data)
 
 try:
-    main("")
+    data = input('Enter barcode data: ')
+    main(data)
 except TypeError:
     print('No data')
