@@ -8,21 +8,21 @@ def barcode_generator(data):
     import os
 
     # Get barcode value
-    barcode_param = data             # REPLACE WITH YOUR BARCODE VALUE
+    barcode_param = data             
 
     # Create barcode image
-    barcode_image = code128.image(barcode_param, height=120)
+    barcode_image = code128.image(barcode_param, height=120, thickness=5)
 
     # Create empty image for barcode + text
     top_bott_margin = 60
-    l_r_margin = 0
+    l_r_margin = -10
     new_height = barcode_image.height + (2 * top_bott_margin)
     new_width = barcode_image.width + (2 * l_r_margin)
     new_image = Image.new('RGB', (new_width, new_height), (255, 255, 255))
 
     # put barcode on new image
     barcode_y = 50
-    new_image.paste(barcode_image, (0, barcode_y))
+    new_image.paste(barcode_image, (l_r_margin, barcode_y))
 
     # object to draw text
     draw = ImageDraw.Draw(new_image)
@@ -33,7 +33,7 @@ def barcode_generator(data):
     h1_font = ImageFont.truetype(
         "C:\\Windows\\Fonts\\Calibri\\Calibri\\calibri.ttf", h1_size)
     # Define custom text
-    center_barcode_value = (barcode_image.width / 2) - len(barcode_param) * 8
+    center_barcode_value = (barcode_image.width / 2) - len(barcode_param) * 10
 
     # Draw text on picture
     draw.text((center_barcode_value, (new_height - h1_size - 15)),
@@ -69,8 +69,8 @@ def pic_in_excel(data):
     my_png = Image(png_loc)
 
     # scaling the image to 32% height and 44% width of its original size
-    my_png.height = 0.3228 * my_png.height
-    my_png.width = 0.4458 * my_png.width
+    my_png.height = my_png.height * 0.4
+    my_png.width = my_png.width * 0.3228
 
     # add and scale the image to the cell
     cell = input('Enter cell to place barcode in: \n>')
