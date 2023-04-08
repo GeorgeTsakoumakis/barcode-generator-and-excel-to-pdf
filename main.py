@@ -42,7 +42,11 @@ def barcode_generator(data):
     # save in file
     if not os.path.exists('image'):
         os.makedirs('image')
-    new_image.save('image/barcode_image_'+data+'.png', 'PNG')
+    try:
+        new_image.save('image/barcode_image_'+data+'.png', 'PNG')
+    except FileNotFoundError:
+        print("File not found, creating new file")
+        quit()
 
 #-------------------------------------------------------------------------------------------------
 def pic_in_excel(data):
