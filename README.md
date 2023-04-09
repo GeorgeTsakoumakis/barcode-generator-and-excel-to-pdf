@@ -35,5 +35,4 @@ You can simply run the app by running `main.py` in the root of the project. From
 2. Change the filename and path where asked to
 3. Change the cell where asked to
 4. Change the data where asked to
-5. Change the pdf filename where asked to
-6. Create a venv before installing the required packages
+5. Create a venv before installing the required packages
