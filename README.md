@@ -1,6 +1,18 @@
 # Barcode Generator for Excel and export to PDF
 This app generates a barcode from given data, adds it to an excel at a specified cell, and exports to pdf
 
+***Version:*** 1.0.0
+
+***Author:*** Georgios Tsakoumakis
+
+***Contact Information:***
+- email: gtsakoumakis2004@gmail.com
+- school email: g.tsakoumakis2@newcastle.ac.uk
+
+***Copyright:*** © Georgios Tsakoumakis 2023. All rights reserved. This app is licensed under the MIT License. You may use this app as long as you mention the author Georgios Tsakoumakis and provide a link to the repository. Any unauthorized use or distribution of this app or its source code is strictly prohibited.
+
+This software can be used to develop other apps and is free to use for personal and commercial use. Only condition is that when using the contents of this repository the name of the author and link to the repository are provided and use of the source code is mentioned in the documentation. Also, the application should not be sold as is. If you want to sell the application, please contact me first.
+
 ## How to run
 1. Install python 3.X (latest version)
 2. Clone this repository
