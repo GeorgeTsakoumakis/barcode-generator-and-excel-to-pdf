@@ -4,3 +4,4 @@ xlsxwriter
 # pypiwin32
 code128
 openpyxl
+lxml
