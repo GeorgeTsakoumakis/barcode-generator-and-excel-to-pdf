@@ -87,7 +87,7 @@ def pic_in_excel(data, FILENAME, COPY, CELL):
     my_png = Image(png_loc)
 
     # scaling the image to 32% height and 44% width of its original size
-    my_png.height = my_png.height * 0.33
+    my_png.height = my_png.height * 0.35
     my_png.width = my_png.width * 0.33
 
     # add and scale the image to the CELL
